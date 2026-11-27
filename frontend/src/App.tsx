@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Drawer } from 'vaul';
 import { TopBar } from './components/TopBar';
 import { LeftSidebar } from './components/LeftSidebar';
+import { MobileNavBar } from './components/MobileNavBar';
 import { UploadZone } from './components/UploadZone';
 import { ImageGallery } from './components/ImageGallery';
 import { PreviewWorkspace } from './components/PreviewWorkspace';
@@ -52,6 +54,7 @@ export default function App() {
   const [uploadProgress, setUploadProgress] = useState<{ done: number; total: number } | null>(null);
   const [uploadErrors, setUploadErrors] = useState<Array<{ filename: string; error: string }>>([]);
   const [toast, setToast] = useState<string | null>(null);
+  const [mobileColorOpen, setMobileColorOpen] = useState(false);
 
   const showToast = useCallback((msg: string) => {
     setToast(msg);
@@ -251,7 +254,7 @@ export default function App() {
   };
 
   return (
-    <div className="h-screen w-screen overflow-hidden flex flex-col text-[#1f1a1d]">
+    <div className="h-[100dvh] w-screen overflow-hidden flex flex-col text-[#1f1a1d]">
       <TopBar
         imageCount={images.length}
         selectedCount={selectedIds.size}
@@ -259,6 +262,7 @@ export default function App() {
         totalBytes={totalBytes}
         activeJob={activeJob}
         onCancelJob={handleCancelJob}
+        onOpenColorDrawer={() => setMobileColorOpen(true)}
         activePresetName={activePresetName}
         onQuickProcessAll={() => {
           const targetIds =
@@ -388,6 +392,53 @@ export default function App() {
           activeImage={activeImage}
         />
       </div>
+
+      {/* Mobile Bottom Navigation Bar (iPhone & Android safe-area aware) */}
+      <MobileNavBar
+        activeSection={section}
+        onSelectSection={setSection}
+        onOpenColorDrawer={() => setMobileColorOpen(true)}
+        imageCount={images.length}
+        processedCount={processedCount}
+      />
+
+      {/* Native-physics Mobile Bottom Sheet Drawer via Vaul (emilkowalski/vaul) */}
+      <Drawer.Root open={mobileColorOpen} onOpenChange={setMobileColorOpen}>
+        <Drawer.Portal>
+          <Drawer.Overlay className="fixed inset-0 bg-[#1f1a1d]/40 backdrop-blur-[2px] z-40 lg:hidden" />
+          <Drawer.Content className="fixed bottom-0 left-0 right-0 z-50 lg:hidden flex flex-col rounded-t-3xl bg-[#fdf6f2] border-t-2 border-x-2 border-[#1f1a1d] max-h-[86dvh] outline-none shadow-2xl">
+            <div className="mx-auto w-12 h-1.5 shrink-0 rounded-full bg-[#cfc4bd] my-2.5" />
+            <Drawer.Title className="sr-only">Color Presets and Adjustments</Drawer.Title>
+            <div className="flex-1 min-h-0 overflow-hidden">
+              <RightSidebar
+                inDrawer
+                presets={presets}
+                settings={settings}
+                onChangeSettings={setSettings}
+                onSelectPreset={handleSelectPreset}
+                onReset={() => setSettings({ ...NEUTRAL_SETTINGS })}
+                onSavePreset={handleSavePreset}
+                onApplyAll={() => {
+                  startBatchForIds(images.map((i) => i.id));
+                  setMobileColorOpen(false);
+                }}
+                onApplySelected={() => {
+                  startBatchForIds(images.filter((i) => selectedIds.has(i.id)).map((i) => i.id));
+                  setMobileColorOpen(false);
+                }}
+                onGoExport={() => {
+                  setMobileColorOpen(false);
+                  setSection('export');
+                }}
+                imageCount={images.length}
+                selectedCount={selectedIds.size}
+                isProcessing={activeJob?.status === 'running'}
+                activeImage={activeImage}
+              />
+            </div>
+          </Drawer.Content>
+        </Drawer.Portal>
+      </Drawer.Root>
     </div>
   );
 }
