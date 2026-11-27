@@ -38,9 +38,11 @@ export const TopBar: React.FC<TopBarProps> = ({
         </div>
         <div className="min-w-0">
           <div className="flex items-center gap-2.5 flex-wrap">
-            <h1 className="font-marker text-xl tracking-tight text-[#1f1a1d] leading-none">
-              <span className="hl-pink">Microscope</span>{' '}
-              <span className="hl-yellow">Color Studio!</span>
+            <h1 className="font-marker text-2xl tracking-tight text-[#1f1a1d] leading-none flex items-baseline">
+              <span className="hl-yellow inline-block -rotate-2 text-[26px]">Mi</span>
+              <span className="hl-pink inline-block rotate-1 text-[26px]">C</span>
+              <span>rolor</span>
+              <span className="text-[#e5483e] inline-block rotate-6 ml-0.5 text-[24px]">!</span>
             </h1>
             <span className="hidden md:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#e6f6f1] text-[#256c5f] border-[1.5px] border-[#3f9a8a]">
               <ShieldCheck className="w-3.5 h-3.5" />
