@@ -112,7 +112,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
 
   return (
     <div className="h-full flex flex-col">
-      <div className="px-5 py-3 border-b-2 border-[#cfc4bd] bg-[#fffcf9]/80 flex flex-wrap items-center justify-between gap-3 shrink-0">
+      <div className="px-3 sm:px-5 py-2.5 sm:py-3 border-b-2 border-[#cfc4bd] bg-[#fffcf9]/80 flex flex-wrap items-center justify-between gap-2 sm:gap-3 shrink-0">
         <div className="flex items-center gap-2 flex-wrap">
           <button
             onClick={onSelectAll}
@@ -160,7 +160,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-5 space-y-4">
+      <div className="flex-1 overflow-y-auto p-3 sm:p-5 space-y-3 sm:space-y-4">
         <UploadZone
           compact
           onUploadFiles={onUploadFiles}
@@ -169,7 +169,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
           uploadErrors={uploadErrors}
         />
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2.5 sm:gap-4">
           {images.map((img) => {
             const isSelected = selectedIds.has(img.id);
             const isActive = activeImageId === img.id;
@@ -224,7 +224,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
                       e.stopPropagation();
                       onRemoveImage(img.id);
                     }}
-                    className="absolute top-2 right-2 w-6 h-6 rounded-lg bg-[#fffcf9]/90 hover:bg-[#e5483e] text-[#1f1a1d] hover:text-white border border-[#1f1a1d]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition"
+                    className="absolute top-2 right-2 w-6 h-6 rounded-lg bg-[#fffcf9]/90 hover:bg-[#e5483e] text-[#1f1a1d] hover:text-white border border-[#1f1a1d]/60 flex items-center justify-center opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition"
                     title="Remove image"
                   >
                     <X className="w-3.5 h-3.5" />

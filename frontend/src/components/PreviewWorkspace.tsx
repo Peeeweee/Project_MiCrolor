@@ -352,10 +352,10 @@ export const PreviewWorkspace: React.FC<PreviewWorkspaceProps> = ({
 
             <div
               onPointerDown={() => setDraggingSlider(true)}
-              className="absolute top-0 bottom-0 w-0.5 bg-[#fde384] cursor-ew-resize z-10 shadow-[0_0_8px_rgba(31,26,29,0.7)]"
+              className="absolute top-0 bottom-0 w-1 bg-[#fde384] cursor-ew-resize z-10 touch-none shadow-[0_0_8px_rgba(31,26,29,0.7)]"
               style={{ left: `${sliderPos}%` }}
             >
-              <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 rounded-full bg-[#fde384] border-2 border-[#1f1a1d] flex items-center justify-center text-[#1f1a1d] shadow-[2px_2px_0_#1f1a1d]">
+              <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 sm:w-9 sm:h-9 rounded-full bg-[#fde384] border-2 border-[#1f1a1d] flex items-center justify-center text-[#1f1a1d] shadow-[2px_2px_0_#1f1a1d]">
                 <SplitSquareHorizontal className="w-4 h-4" />
               </div>
             </div>
