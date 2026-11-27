@@ -1,4 +1,4 @@
-# Microscope Batch Color Studio
+# MiCrolor — Microscope Batch Color Studio
 
 A locally running, high-integrity scientific web application for batch color grading of microscope photographs. Designed specifically for converting whitish or grayish brightfield microscope backgrounds into **Soft Pale Pink** (or any custom illumination tone) while preserving original specimen structures, dimensions, and bit depth.
 
