@@ -24,7 +24,7 @@ BASE_DATA_DIR = Path(os.environ.get("STUDIO_DATA_DIR", Path(__file__).resolve().
 workspace = StudioWorkspace(BASE_DATA_DIR)
 
 app = FastAPI(
-    title="Microscope Batch Color Studio API",
+    title="MiCrolor API",
     version="1.0.0",
     description="Local-only scientific batch microscope color processing engine.",
 )
@@ -49,7 +49,7 @@ def health():
         "status": "ok",
         "localOnly": True,
         "imageCount": len(workspace.images),
-        "defaultExportDir": str((Path.home() / "Pictures" / "MicroscopeBatchStudio").resolve()),
+        "defaultExportDir": str((Path.home() / "Pictures" / "MiCrolor").resolve()),
     }
 
 
