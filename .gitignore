@@ -8,5 +8,6 @@ backend/tests/__pycache__/
 backend/workspace_data/
 .pytest_cache/
 *.pyc
+*.tsbuildinfo
 .DS_Store
 Thumbs.db
