@@ -226,3 +226,28 @@ input[type="range"].studio-slider::-moz-range-thumb {
   background-image: radial-gradient(#d5c8c0 1.2px, transparent 1.2px);
   background-size: 16px 16px;
 }
+
+/* Mobile & touch refinements for iOS Safari and Android Chrome */
+@media (pointer: coarse) {
+  input[type="range"].studio-slider {
+    height: 10px;
+  }
+
+  input[type="range"].studio-slider::-webkit-slider-thumb {
+    width: 24px;
+    height: 24px;
+  }
+
+  input[type="range"].studio-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.safe-pb {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}
+
+.safe-pt {
+  padding-top: env(safe-area-inset-top);
+}
