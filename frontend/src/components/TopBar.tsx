@@ -1,5 +1,5 @@
 import React from 'react';
-import { Microscope, ShieldCheck, Loader2, XCircle, CheckCircle2, Sparkles } from 'lucide-react';
+import { Microscope, ShieldCheck, Loader2, XCircle, CheckCircle2, Sparkles, SlidersHorizontal } from 'lucide-react';
 import type { BatchJobStatus } from '../types';
 import { formatBytes } from '../utils/format';
 
@@ -11,6 +11,7 @@ interface TopBarProps {
   activeJob: BatchJobStatus | null;
   onCancelJob: (jobId: string) => void;
   onQuickProcessAll: () => void;
+  onOpenColorDrawer?: () => void;
   activePresetName: string;
 }
 
@@ -22,6 +23,7 @@ export const TopBar: React.FC<TopBarProps> = ({
   activeJob,
   onCancelJob,
   onQuickProcessAll,
+  onOpenColorDrawer,
   activePresetName,
 }) => {
   const isRunning = activeJob?.status === 'running';
@@ -31,7 +33,7 @@ export const TopBar: React.FC<TopBarProps> = ({
       : 0;
 
   return (
-    <header className="h-16 shrink-0 bg-[#fffcf9]/90 backdrop-blur-sm border-b-2 border-[#cfc4bd] px-5 flex items-center justify-between gap-4 select-none">
+    <header className="min-h-14 sm:h-16 shrink-0 bg-[#fffcf9]/95 backdrop-blur-sm border-b-2 border-[#cfc4bd] px-3 sm:px-5 py-1.5 safe-pt flex items-center justify-between gap-2 sm:gap-4 select-none">
       <div className="flex items-center gap-3 min-w-0">
         <div className="w-10 h-10 rounded-full bg-[#fde384] border-2 border-[#1f1a1d] shadow-[2px_2px_0_#1f1a1d] flex items-center justify-center text-[#1f1a1d] shrink-0 -rotate-3">
           <Microscope className="w-5 h-5" />
@@ -108,14 +110,30 @@ export const TopBar: React.FC<TopBarProps> = ({
         )}
       </div>
 
-      <div className="flex items-center gap-2 shrink-0">
+      <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+        {onOpenColorDrawer && (
+          <button
+            type="button"
+            onClick={onOpenColorDrawer}
+            className="lg:hidden sketch-btn-pink inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold"
+            title="Open color presets & sliders"
+          >
+            <SlidersHorizontal className="w-3.5 h-3.5" />
+            <span className="hidden xs:inline">Colors</span>
+          </button>
+        )}
         <button
           disabled={imageCount === 0 || isRunning}
           onClick={onQuickProcessAll}
-          className="sketch-btn-primary inline-flex items-center gap-1.5 px-4 py-1.5 text-sm font-semibold disabled:opacity-45 disabled:cursor-not-allowed"
+          className="sketch-btn-primary inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-semibold disabled:opacity-45 disabled:cursor-not-allowed"
         >
-          <Sparkles className="w-4 h-4" />
-          Process {selectedCount > 0 ? `Selected (${selectedCount})` : `All (${imageCount})`}
+          <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+          <span className="hidden sm:inline">
+            Process {selectedCount > 0 ? `Selected (${selectedCount})` : `All (${imageCount})`}
+          </span>
+          <span className="sm:hidden">
+            Run ({selectedCount > 0 ? selectedCount : imageCount})
+          </span>
         </button>
       </div>
     </header>

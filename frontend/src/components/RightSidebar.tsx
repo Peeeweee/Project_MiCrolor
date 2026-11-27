@@ -25,6 +25,7 @@ interface RightSidebarProps {
   selectedCount: number;
   isProcessing: boolean;
   activeImage: ImageRecord | null;
+  inDrawer?: boolean;
 }
 
 interface SliderRowProps {
@@ -71,6 +72,7 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
   selectedCount,
   isProcessing,
   activeImage,
+  inDrawer = false,
 }) => {
   const [showSaveForm, setShowSaveForm] = useState(false);
   const [presetName, setPresetName] = useState('');
@@ -96,7 +98,13 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
   };
 
   return (
-    <aside className="w-84 shrink-0 bg-[#fdf6f2]/90 border-l-2 border-[#cfc4bd] flex flex-col overflow-hidden">
+    <aside
+      className={
+        inDrawer
+          ? 'w-full h-full bg-[#fdf6f2] flex flex-col overflow-hidden'
+          : 'hidden lg:flex w-84 shrink-0 bg-[#fdf6f2]/90 border-l-2 border-[#cfc4bd] flex-col overflow-hidden'
+      }
+    >
       <div className="flex-1 overflow-y-auto p-3.5 space-y-3.5">
         <section className="sketch-card p-3 space-y-2.5">
           <div className="flex items-center justify-between">
@@ -341,7 +349,7 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
         )}
       </div>
 
-      <div className="p-3.5 border-t-2 border-[#cfc4bd] bg-[#fffcf9] space-y-2 shrink-0">
+      <div className="p-3.5 border-t-2 border-[#cfc4bd] bg-[#fffcf9] space-y-2 shrink-0 safe-pb">
         <button
           type="button"
           disabled={imageCount === 0 || isProcessing}

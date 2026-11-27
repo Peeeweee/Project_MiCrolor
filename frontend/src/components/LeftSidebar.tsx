@@ -60,7 +60,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
   ];
 
   return (
-    <aside className="w-56 shrink-0 bg-[#fdf6f2]/80 border-r-2 border-[#cfc4bd] flex flex-col justify-between py-4 px-3 select-none">
+    <aside className="hidden lg:flex w-56 shrink-0 bg-[#fdf6f2]/80 border-r-2 border-[#cfc4bd] flex-col justify-between py-4 px-3 select-none">
       <div className="space-y-1.5">
         <div className="px-2 pb-1.5 font-marker text-xs uppercase tracking-wider text-[#544c50]">
           Lab Steps
