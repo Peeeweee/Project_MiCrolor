@@ -96,7 +96,10 @@ export const ExportPanel: React.FC<ExportPanelProps> = ({
       if (res.downloadUrl) {
         const link = document.createElement('a');
         link.href = res.downloadUrl;
-        link.download = '';
+        link.download =
+          res.delivery === 'zip'
+            ? `${filenamePrefix}microlor_batch_${format.toLowerCase()}.zip`
+            : res.files[0] || `microlor_export.${format.toLowerCase()}`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
